@@ -597,6 +597,6 @@ This project is licensed for educational and demonstration purposes.
 **ResolveX – Smart Complaint Management System**
 
 Built with ❤️ using **React, Node.js, Supabase, and Twilio**.
----
+
 Build by SANVE
 
