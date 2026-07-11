@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400;1,14..32,500&display=swap');
+@import "tailwindcss";
+
+/* ============================================================
+   LIGHT THEME TOKENS (default)
+   ============================================================ */
+:root {
+  --bg:         #FAF7F2;
+  --bg-alt:     #F5EFE6;
+  --surface:    #FFFCF8;
+  --card:       #FFFFFF;
+  --sidebar:    #F5EFE6;
+  --border:     #E8DED2;
+  --border-soft:#EDE6DC;
+
+  --primary:    #C86B3C;
+  --primary-hover: #B05C30;
+  --primary-light: #FBF0EB;
+  --primary-mid:   #F0D5C8;
+
+  --secondary:  #7A9E7E;
+  --secondary-light: #EDF3EE;
+  --secondary-hover: #6A8E6D;
+
+  --text:       #2F2A24;
+  --muted:      #6B6258;
+  --subtle:     #9A8E84;
+
+  --success:    #5A9E6A;
+  --warning:    #D4820A;
+  --danger:     #C0392B;
+  --info:       #4A7FA5;
+
+  --shadow-sm:  0 1px 3px 0 rgb(47 42 36 / 0.07), 0 1px 2px -1px rgb(47 42 36 / 0.04);
+  --shadow-md:  0 4px 16px -2px rgb(47 42 36 / 0.10), 0 2px 6px -2px rgb(47 42 36 / 0.06);
+  --shadow-lg:  0 12px 40px -6px rgb(47 42 36 / 0.14), 0 4px 12px -4px rgb(47 42 36 / 0.08);
+}
+
+/* ============================================================
+   DARK THEME TOKENS
+   ============================================================ */
+.dark {
+  --bg:         #1C1814;
+  --bg-alt:     #231E19;
+  --surface:    #26211B;
+  --card:       #2E2820;
+  --sidebar:    #221D18;
+  --border:     #3D342A;
+  --border-soft:#352D24;
+
+  --primary:    #D4845A;
+  --primary-hover: #C06B40;
+  --primary-light: #3D2518;
+  --primary-mid:   #52321F;
+
+  --secondary:  #8FB394;
+  --secondary-light: #1E2D20;
+  --secondary-hover: #7FA384;
+
+  --text:       #F0EAE0;
+  --muted:      #B8A99A;
+  --subtle:     #7A6E64;
+
+  --success:    #6AB878;
+  --warning:    #E09A30;
+  --danger:     #E05545;
+  --info:       #6099BE;
+
+  --shadow-sm:  0 1px 3px 0 rgb(0 0 0 / 0.20);
+  --shadow-md:  0 4px 16px -2px rgb(0 0 0 / 0.30);
+  --shadow-lg:  0 12px 40px -6px rgb(0 0 0 / 0.40);
+}
+
+/* ============================================================
+   TAILWIND V4 THEME CONFIGURATION
+   ============================================================ */
+@theme {
+  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-sidebar: var(--sidebar);
+  --color-border-theme: var(--border);
+  --color-border-soft: var(--border-soft);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+  --color-primary-mid: var(--primary-mid);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-light: var(--secondary-light);
+  --color-secondary-hover: var(--secondary-hover);
+
+  --color-text-theme: var(--text);
+  --color-muted-theme: var(--muted);
+  --color-subtle-theme: var(--subtle);
+
+  --color-success-theme: var(--success);
+  --color-warning-theme: var(--warning);
+  --color-danger-theme: var(--danger);
+  --color-info-theme: var(--info);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.2s ease;
+}
+
+/* ============================================================
+   CUSTOM SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-alt); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ============================================================
+   SELECTION
+   ============================================================ */
+::selection {
+  background-color: rgb(200 107 60 / 0.15);
+  color: var(--primary);
+}
+
+/* ============================================================
+   FOCUS
+   ============================================================ */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   LAYOUT HELPERS
+   ============================================================ */
+.container-custom {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+@media (min-width: 640px) {
+  .container-custom { padding-left: 2rem; padding-right: 2rem; }
+}
+@media (min-width: 1024px) {
+  .container-custom { padding-left: 3rem; padding-right: 3rem; }
+}
+
+/* ============================================================
+   KEYFRAME ANIMATIONS
+   ============================================================ */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes pulse-ring {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(200 107 60 / 0.30); }
+  50%       { box-shadow: 0 0 0 8px rgb(200 107 60 / 0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-float       { animation: float 3s ease-in-out infinite; }
+.animate-pulse-ring  { animation: pulse-ring 2s ease-in-out infinite; }
+.animate-fadeUp      { animation: fadeUp 0.5s ease-out forwards; }
+
+/* ============================================================
+   CARD GLASS EFFECT (light)
+   ============================================================ */
+.card-warm {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card-warm:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* ============================================================
+   GRADIENT TEXT
+   ============================================================ */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, #E8895A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
