@@ -1,217 +1,599 @@
-Smart Complaint Management System with SMS & WhatsApp Notifications
-Project Overview
-The Smart Complaint Management System is a web-based application that allows customers to raise complaints online and enables administrators to manage, track, and resolve those complaints efficiently. The system provides real-time SMS and WhatsApp notifications at every important stage of the complaint lifecycle, ensuring clear communication between users and administrators.
+# 🚀 ResolveX – Smart Complaint Management System
 
-Modules
-1. User Module (Customer Portal)
-The customer can:
-Register/Login (optional)
-Raise a new complaint
-View complaint history
-Track complaint status
-View admin responses
-Update profile
-Complaint Form
-The complaint form contains:
-Complaint ID (Auto Generated)
-Name
-Mobile Number
-Complaint Category
-Complaint Title
-Complaint Description
-Upload Image (Optional)
-Submit Button
-2. Admin Module
-The administrator can:
-Secure Login
-View all complaints
-Search complaints
-Filter by status, category, or date
-View complaint details
-Reply to complaints
-Change complaint status
-Mark complaints as Completed
-View notification history
-Monitor dashboard analytics
-Complaint Workflow
-Step 1 – User Raises Complaint
-The user fills out the complaint form and clicks Submit.
-The system automatically:
-Generates a unique Complaint ID
-Saves the complaint in the database
-Sets the complaint status to Pending
-Step 2 – Automatic Notifications
-Immediately after submission:
-Admin Receives
-SMS
+ResolveX is a modern **Complaint Management System** designed to help organizations efficiently manage customer complaints from submission to resolution.
+
+It provides a complete workflow for customers and administrators with **real-time complaint tracking**, **role-based dashboards**, **analytics**, and **automatic SMS & WhatsApp notifications** powered by **Twilio**.
+
+---
+
+# 📌 Project Overview
+
+ResolveX digitizes the complete complaint management process by allowing customers to register complaints online while enabling administrators to manage, assign, track, and resolve complaints through a centralized dashboard.
+
+The system provides **real-time notifications** throughout the complaint lifecycle to ensure transparency and faster communication.
+
+---
+
+# ✨ Features
+
+- 🔐 Secure Authentication using Supabase Auth
+- 👤 Role-Based Access (Admin & Customer)
+- 📝 Online Complaint Registration
+- 📂 Complaint Tracking & History
+- 📊 Admin Dashboard
+- 📈 Analytics Dashboard
+- 🔍 Search & Advanced Filters
+- 📱 Automatic SMS Notifications (Twilio)
+- 💬 Automatic WhatsApp Notifications (Twilio)
+- 🖼️ Image Upload Support
+- 📄 Export Reports (Excel/PDF)
+- 📜 Notification Logs
+- 🌙 Dark / Light Theme
+- 📱 Responsive Design
+
+---
+
+# 🧩 Modules
+
+## 👤 Customer Module
+
+Customers can:
+
+- Register Account
+- Login
+- Raise Complaints
+- Upload Supporting Images
+- Track Complaint Status
+- View Complaint History
+- View Admin Replies
+- Update Profile
+- Receive SMS Notifications
+- Receive WhatsApp Notifications
+
+---
+
+### Complaint Form
+
+The complaint form includes:
+
+- Complaint Number *(Auto Generated)*
+- Customer Name
+- Mobile Number
+- Email Address
+- Complaint Category
+- Complaint Title
+- Complaint Description
+- Priority
+- Image Upload *(Optional)*
+- Submit Complaint
+
+---
+
+## 🔐 Admin Module
+
+Administrators can:
+
+- Secure Login
+- Dashboard Overview
+- View All Complaints
+- Search Complaints
+- Filter by Category
+- Filter by Priority
+- Filter by Status
+- Filter by Date
+- Assign Complaints
+- Update Complaint Status
+- Add Resolution
+- Reply to Customers
+- Monitor Notification Logs
+- Export Reports
+- View Analytics
+
+---
+
+# 🔄 Complaint Workflow
+
+## Step 1 – Customer Creates Complaint
+
+The customer submits the complaint form.
+
+ResolveX automatically:
+
+- Generates a unique Complaint Number
+- Stores complaint in Supabase
+- Sets status to **Pending**
+- Creates complaint history
+- Logs notification events
+
+---
+
+## Step 2 – Automatic Notifications
+
+### 📩 Admin Receives
+
+### SMS
+
+```
 New Complaint Received
 
-Complaint ID: CMP1001
+Complaint No: RX-2026-0001
+
 Customer: Rahul
+
 Category: Water Supply
-WhatsApp
-New complaint has been registered.
 
-Complaint ID: CMP1001
+Priority: High
 
-Please review it from the Admin Dashboard.
+Please review the complaint.
+```
 
-User Receives
-SMS
-Your complaint has been successfully registered.
+### WhatsApp
 
-Complaint ID: CMP1001
+```
+🚨 New Complaint Received
 
-We will update you once it is reviewed.
-WhatsApp
-Hello Rahul 👋
+Complaint No: RX-2026-0001
 
-Your complaint has been received successfully.
+Customer: Rahul
 
-Complaint ID: CMP1001
+Category: Water Supply
+
+Priority: High
+
+Please review it in the ResolveX Admin Dashboard.
+```
+
+---
+
+### 👤 Customer Receives
+
+### SMS
+
+```
+Your complaint has been registered successfully.
+
+Complaint No:
+
+RX-2026-0001
 
 Current Status:
+
 Pending
+
+Thank you for choosing ResolveX.
+```
+
+### WhatsApp
+
+```
+Hello Rahul 👋
+
+Your complaint has been successfully registered.
+
+Complaint Number:
+
+RX-2026-0001
+
+Current Status:
+
+Pending
+
+We will notify you about further updates.
 
 Thank you.
+```
 
-Step 3 – Admin Reviews Complaint
-The Admin Dashboard displays all complaints.
+---
+
+## Step 3 – Admin Reviews Complaint
+
+The administrator can:
+
+- View Complaint Details
+- Review Uploaded Images
+- Add Internal Remarks
+- Reply to Customer
+- Assign Complaint
+- Change Status to **Assigned**
+- Update to **In Progress**
+
 Example:
-Complaint ID
-Customer
-Category
-Status
-Action
-CMP1001
-Rahul
-Water Supply
-Pending
-View
 
-The admin opens the complaint and can:
-Read complete details
-View uploaded images
-Contact customer if needed
-Add remarks
-Change status to In Progress
+| Complaint No | Customer | Category | Status | Action |
+|--------------|----------|----------|--------|--------|
+| RX-2026-0001 | Rahul | Water Supply | Pending | View |
 
-Step 4 – Complaint Resolution
-After resolving the issue, the admin enters a resolution message.
+---
+
+## Step 4 – Complaint Resolution
+
+After resolving the complaint, the administrator enters the resolution.
+
 Example:
-Resolution:
 
-Water pipeline repaired successfully.
+```
+The damaged water pipeline has been repaired successfully.
 
-Water supply restored.
-The admin then clicks:
-Mark as Completed
-The complaint status changes to Completed.
+Water supply has been restored.
+```
 
-Step 5 – Final Notifications
-Once the complaint is completed, the system automatically sends:
-SMS
-Complaint ID: CMP1001
+The administrator then clicks:
+
+✅ Resolve Complaint
+
+Complaint Status:
+
+**Resolved**
+
+---
+
+## Step 5 – Final Notifications
+
+### SMS
+
+```
+Complaint No:
+
+RX-2026-0001
 
 Dear Rahul,
 
 Your complaint has been resolved successfully.
 
 Resolution:
-Water pipeline repaired successfully.
+
+The damaged water pipeline has been repaired.
 
 Thank you.
 
-WhatsApp
+ResolveX Support
+```
+
+---
+
+### WhatsApp
+
+```
 Hello Rahul 👋
 
-Your complaint (CMP1001) has been resolved.
+Your complaint
+
+(RX-2026-0001)
+
+has been resolved successfully.
 
 Resolution:
-Water pipeline repaired successfully.
 
-Thank you for using our Complaint Management System.
+The damaged water pipeline has been repaired.
 
-Complaint Status Flow
-User Raises Complaint
-        │
-        ▼
-Pending
-        │
-        ▼
-Admin Reviews
-        │
-        ▼
-In Progress
-        │
-        ▼
-Completed
-        │
-        ├── SMS to User
-        └── WhatsApp to User
+Thank you for using ResolveX.
+```
 
-User Dashboard
-The customer dashboard includes:
-Welcome Screen
-Raise Complaint
-Complaint History
-Track Complaint
-Profile
-Current Complaint Status
-Admin Resolution
-Notification History
+---
 
-Admin Dashboard
-The administrator dashboard displays:
-Statistics Cards
-Total Complaints
-Today's Complaints
-Pending Complaints
-In Progress Complaints
-Completed Complaints
-Analytics
-Complaints by Category
-Daily Complaint Trends
-Monthly Complaint Trends
-Status Distribution (Pie Chart)
-Complaint Management
-View Complaint
-Search Complaint
-Filter by Date
-Filter by Category
-Filter by Status
-Reply to Complaint
-Update Status
-Mark as Completed
-Export Reports (Excel/PDF)
+# 📊 Complaint Status Flow
 
-Database Design
-Users
-User ID
-Name
-Mobile Number
-Email (Optional)
-Role (User/Admin)
+```text
+Customer Creates Complaint
+          │
+          ▼
+       Pending
+          │
+          ▼
+      Assigned
+          │
+          ▼
+    In Progress
+          │
+          ▼
+      Resolved
+          │
+          ▼
+        Closed
+          │
+     ┌────┴────┐
+     ▼         ▼
+   SMS      WhatsApp
+```
 
-Complaints
-Complaint ID
-User ID
-Category
-Complaint Title
-Description
-Image (Optional)
-Status
-Admin Reply
-Resolution Message
-Created Date
-Updated Date
+---
 
-Notifications
-Notification ID
-Complaint ID
-Recipient
-Notification Type (SMS/WhatsApp)
-Message
-Delivery Status
-Sent Time
+# 👤 Customer Dashboard
 
+Customers can access:
+
+- Dashboard Overview
+- Raise Complaint
+- Complaint History
+- Track Complaint
+- Complaint Details
+- Admin Responses
+- Notification History
+- Profile Management
+
+---
+
+# 🛠️ Admin Dashboard
+
+## Dashboard Statistics
+
+- Total Complaints
+- Today's Complaints
+- Pending Complaints
+- Assigned Complaints
+- In Progress Complaints
+- Resolved Complaints
+- Closed Complaints
+
+---
+
+## 📈 Analytics
+
+- Complaints by Category
+- Complaint Trends
+- Status Distribution
+- Priority Distribution
+- Daily Reports
+- Monthly Reports
+
+---
+
+## Complaint Management
+
+- View Complaints
+- Search Complaints
+- Filter Complaints
+- Assign Complaints
+- Update Status
+- Add Resolution
+- Reply to Customer
+- Export Reports
+- View Notification Logs
+
+---
+
+# 📱 Notification System
+
+ResolveX automatically sends notifications during the complaint lifecycle.
+
+## Customer Notifications
+
+- Complaint Registered
+- Complaint Assigned
+- Complaint In Progress
+- Complaint Resolved
+- Complaint Closed
+
+## Admin Notifications
+
+- New Complaint Received
+- High Priority Complaint Alerts
+
+---
+
+# 🗄️ Database Design
+
+## Profiles
+
+| Field | Description |
+|--------|-------------|
+| User ID | Primary Key |
+| Full Name | Customer/Admin Name |
+| Email | User Email |
+| Phone Number | Contact Number |
+| Role | Customer/Admin |
+| Status | Active/Suspended |
+
+---
+
+## Complaints
+
+| Field | Description |
+|--------|-------------|
+| Complaint ID | Primary Key |
+| Complaint Number | Auto Generated |
+| User ID | Foreign Key |
+| Category | Complaint Category |
+| Title | Complaint Title |
+| Description | Complaint Details |
+| Priority | Low/Medium/High |
+| Image | Optional |
+| Status | Pending/Assigned/In Progress/Resolved/Closed |
+| Created At | Timestamp |
+| Updated At | Timestamp |
+
+---
+
+## Complaint Replies
+
+| Field | Description |
+|--------|-------------|
+| Reply ID | Primary Key |
+| Complaint ID | Foreign Key |
+| Admin ID | Foreign Key |
+| Reply | Admin Response |
+| Created At | Timestamp |
+
+---
+
+## Notifications
+
+| Field | Description |
+|--------|-------------|
+| Notification ID | Primary Key |
+| Complaint ID | Foreign Key |
+| Recipient | Customer/Admin |
+| Channel | SMS / WhatsApp |
+| Message | Notification Message |
+| Delivery Status | Sent / Failed |
+| Provider Response | Twilio Response |
+| Created At | Timestamp |
+
+---
+
+# 🛠️ Technology Stack
+
+## Frontend
+
+- React.js
+- Vite
+- Tailwind CSS
+- Framer Motion
+- React Router
+
+---
+
+## Backend
+
+- Node.js
+- Express.js
+
+---
+
+## Database
+
+- Supabase
+- PostgreSQL
+
+---
+
+## Authentication
+
+- Supabase Auth
+
+---
+
+## Notifications
+
+- Twilio SMS
+- Twilio WhatsApp
+
+---
+
+## Reports
+
+- Excel Export
+- PDF Export
+
+---
+
+# 🔒 Key Features
+
+- Secure Authentication
+- Role-Based Authorization
+- Complaint Tracking
+- Automatic Complaint Number Generation
+- Complaint Status History
+- Image Upload
+- SMS Notifications
+- WhatsApp Notifications
+- Dashboard Analytics
+- Notification Logs
+- Search & Filters
+- Export Reports
+- Responsive UI
+
+---
+
+# 🚀 Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/your-username/resolvex.git
+```
+
+## Install Frontend
+
+```bash
+npm install
+```
+
+## Install Backend
+
+```bash
+cd server
+npm install
+```
+
+## Configure Environment Variables
+
+Create:
+
+Frontend
+
+```
+.env.local
+```
+
+Backend
+
+```
+server/.env
+```
+
+Add your:
+
+- Supabase Credentials
+- Twilio Credentials
+
+---
+
+## Run Backend
+
+```bash
+cd server
+npm run dev
+```
+
+---
+
+## Run Frontend
+
+```bash
+npm run dev
+```
+
+---
+
+# 📌 Future Enhancements
+
+- Email Notifications
+- Push Notifications
+- OTP Authentication
+- AI Complaint Categorization
+- AI Priority Prediction
+- Mobile Application
+- GIS Location Support
+- Multi-language Support
+- Live Chat Support
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork the Repository
+
+2. Create a Feature Branch
+
+3. Commit Your Changes
+
+4. Push to GitHub
+
+5. Open a Pull Request
+
+---
+
+# 📄 License
+
+This project is licensed for educational and demonstration purposes.
+
+---
+
+# 👨‍💻 Developed By
+
+**ResolveX – Smart Complaint Management System**
+
+Built with ❤️ using **React, Node.js, Supabase, and Twilio**.
