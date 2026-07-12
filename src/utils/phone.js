@@ -1,3 +1,7 @@
+/**
+ * Normalize a phone number to E.164 format.
+ * Defaults 10-digit numbers to India (+91).
+ */
 export function normalizeToE164(phone) {
   if (!phone || typeof phone !== 'string') return null
 
@@ -25,7 +29,7 @@ export function validatePhoneInput(phone) {
   }
   const normalized = normalizeToE164(phone)
   if (!normalized || !isValidE164Phone(normalized)) {
-    return { valid: false, error: 'Enter a valid phone number (e.g. +919876543210)' }
+    return { valid: false, error: 'Enter a valid phone number in international format (e.g. +919876543210)' }
   }
   return { valid: true, normalized }
 }
