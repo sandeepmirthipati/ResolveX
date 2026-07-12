@@ -1,5 +1,5 @@
 import { supabase } from '../config/supabase.js'
-import { notifyAdmins, notifyComplaintOwner } from './notificationService.js'
+import { notifyAdmins, notifyComplaintOwner, notifyAssignedAdmin } from './notificationService.js'
 import { logger } from '../utils/logger.js'
 import { COMPLAINT_STATUS } from '../constants/index.js'
 
@@ -7,7 +7,8 @@ const COMPLAINT_SELECT = `
   *,
   category:categories(id, name),
   customer:profiles!user_id(id, full_name, email, phone_number, notification_sms, notification_whatsapp),
-  assignee:profiles!assigned_to(id, full_name)
+  assignee:profiles!assigned_to(id, full_name),
+  assigner:profiles!assigned_by(id, full_name)
 `
 
 function mapComplaint(row) {
@@ -20,6 +21,7 @@ function mapComplaint(row) {
     phone: row.customer?.phone_number ?? null,
     customer_phone: row.customer?.phone_number ?? null,
     assigned_to_name: row.assignee?.full_name ?? null,
+    assigned_by_name: row.assigner?.full_name ?? null,
   }
 }
 
@@ -140,24 +142,35 @@ export async function updateComplaintStatus(user, id, { status, resolution, assi
   }
 
   const updates = {}
+  let assignedToChanged = false
+
   if (status) updates.status = status
   if (resolution !== undefined) updates.resolution = resolution
-  if (assigned_to !== undefined) updates.assigned_to = assigned_to
+  if (assigned_to !== undefined) {
+    updates.assigned_to = assigned_to
+    assignedToChanged = assigned_to !== existing.assigned_to
+  }
 
   if (status === COMPLAINT_STATUS.ASSIGNED && !assigned_to && isAdmin) {
     updates.assigned_to = user.id
+    assignedToChanged = existing.assigned_to !== user.id
   }
 
-  const { data, error } = await supabase
-    .from('complaints')
-    .update(updates)
-    .eq('id', id)
-    .select(COMPLAINT_SELECT)
-    .single()
+  if (assignedToChanged && isAdmin) {
+    updates.assigned_by = user.id
+    updates.assigned_at = new Date().toISOString()
+  }
 
-  if (error) throw { status: 400, message: error.message }
+  if (Object.keys(updates).length > 0) {
+    const { error } = await supabase
+      .from('complaints')
+      .update(updates)
+      .eq('id', id)
 
-  const complaint = mapComplaint(data)
+    if (error) throw { status: 400, message: error.message }
+  }
+
+  const complaint = await getComplaintById(user, id)
 
   if (status && status !== existing.status) {
     try {
@@ -171,6 +184,22 @@ export async function updateComplaintStatus(user, id, { status, resolution, assi
       complaint.notification_results = {
         success: false,
         error: err?.message || 'Owner notification failed',
+      }
+    }
+  }
+
+  if (assignedToChanged) {
+    try {
+      complaint.assigned_notification_results = await notifyAssignedAdmin(complaint)
+    } catch (err) {
+      logger.error('complaints', 'Assigned admin notification failed', {
+        complaintId: complaint.id,
+        assignedTo: complaint.assigned_to,
+        error: err?.message,
+      })
+      complaint.assigned_notification_results = {
+        success: false,
+        error: err?.message || 'Assigned admin notification failed',
       }
     }
   }

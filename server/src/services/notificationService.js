@@ -68,6 +68,52 @@ function buildAdminWhatsApp(complaint) {
   ].join('\n')
 }
 
+function buildAssignedAdminSms(complaint) {
+  return [
+    'Complaint Assigned to You',
+    '',
+    'Complaint Number:',
+    complaint.complaint_number,
+    '',
+    'Assigned By:',
+    complaint.assigned_by_name || 'System',
+    '',
+    'Customer:',
+    complaint.customer_name || 'Unknown',
+    '',
+    'Category:',
+    complaint.category_name || 'General',
+    '',
+    'Priority:',
+    complaint.priority || 'medium',
+    '',
+    'Please login to ResolveX Admin Dashboard to review it.',
+  ].join('\n')
+}
+
+function buildAssignedAdminWhatsApp(complaint) {
+  return [
+    '✅ Complaint Assigned to You',
+    '',
+    'Complaint Number:',
+    complaint.complaint_number,
+    '',
+    'Assigned By:',
+    complaint.assigned_by_name || 'System',
+    '',
+    'Customer:',
+    complaint.customer_name || 'Unknown',
+    '',
+    'Category:',
+    complaint.category_name || 'General',
+    '',
+    'Priority:',
+    complaint.priority || 'medium',
+    '',
+    'Please review it in ResolveX Admin Dashboard.',
+  ].join('\n')
+}
+
 function buildOwnerSms(complaint, status) {
   const name = complaint.customer_name || 'Customer'
   const statusLabel = formatStatus(status)
@@ -137,6 +183,40 @@ async function getProfileById(userId) {
     return null
   }
   return data
+}
+
+export async function notifyAssignedAdmin(complaint) {
+  if (!complaint.assigned_to) {
+    return { skipped: true, reason: 'Complaint not assigned' }
+  }
+
+  const assignedAdmin = await getProfileById(complaint.assigned_to)
+  if (!assignedAdmin) {
+    return { skipped: true, reason: 'Assigned admin profile not found' }
+  }
+
+  const eventKey = `assigned_${complaint.id}`
+  const results = []
+
+  const smsResult = await dispatchNotification({
+    complaint,
+    recipient: assignedAdmin,
+    channel: NOTIFICATION_TYPE.SMS,
+    message: buildAssignedAdminSms(complaint),
+    eventKey,
+  })
+  results.push(smsResult)
+
+  const waResult = await dispatchNotification({
+    complaint,
+    recipient: assignedAdmin,
+    channel: NOTIFICATION_TYPE.WHATSAPP,
+    message: buildAssignedAdminWhatsApp(complaint),
+    eventKey,
+  })
+  results.push(waResult)
+
+  return results
 }
 
 async function wasRecentlySent(complaintId, recipientId, notificationType, eventKey) {
